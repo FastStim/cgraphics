@@ -37,13 +37,13 @@ def display(swap = 1, clear = 1):
         viewInit(evepoint=(0, 0, 100), lookat=(0,0,0))
         #torus
         glPushMatrix()
-
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glTranslatef(-20, 0, 0)
         glRotate(45, 1, 0, 0)
 
-        # drawTorus(5, .9999, 20, 20)
+        drawTorus(5, .9999, 20, 20)
 
-        glutWireTorus(5, 10, 20, 20)
+        #glutWireTorus(5, 10, 20, 20)
 
         glPopMatrix()
 
