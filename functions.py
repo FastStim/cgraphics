@@ -74,10 +74,10 @@ def drawTorus(size, sp_to, numc, numt):
 
     twopi = pi * 2
 
-    for i in range(0, numc):
+    for i in range(0, numc+1):
         glBegin(GL_QUAD_STRIP)
-        for j in range(0, numt):
-            for k in range(1, 0, -1):
+        for j in range(0, numt+1):
+            for k in range(2, 0, -1):
                 s = (i + k) % numc + 0.5
                 t = j % numt
 
