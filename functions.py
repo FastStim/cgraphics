@@ -56,7 +56,7 @@ def drawScene2(angle):
         glPopMatrix()
 
 
-def drawScene3(size, sp_to, numc, numt):
+def drawTorus(size, sp_to, numc, numt):
     glPushMatrix()
 
     glRotate(90, 1, 0, 0)

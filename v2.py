@@ -14,7 +14,9 @@ from functions import *
 start_time = time.time()
 period = 10
 angle = 0
-is_rotating = True
+is_rotating = False
+
+is_torus_rotating = False
 
 scene = 1
 
@@ -38,6 +40,9 @@ def display(swap = 1, clear = 1):
 
         glTranslatef(-20, 0, 0)
         glRotate(45, 1, 0, 0)
+
+        # drawTorus(5, .9999, 20, 20)
+
         glutWireTorus(5, 10, 20, 20)
 
         glPopMatrix()
@@ -53,62 +58,65 @@ def display(swap = 1, clear = 1):
         gluQuadricNormals(quadratic, GLU_SMOOTH)
         gluCylinder(quadratic, 5.0, 5.0, 20.0, 32, 32)
 
-        # radius = 10
-        # halfLength = 10
-        # slices = 20
-        # for i in range(0, slices - 1):
-        #     theta = 2.0 * pi * i
-        #     nextTheta = 2.0 * pi * float(i + 1)
-        #     glBegin(GL_TRIANGLE_STRIP)
-        #     glVertex3f(0.0, halfLength, 0.0)
-        #     glVertex3f(radius * cos(theta), halfLength, radius * sin(theta))
-        #     glVertex3f(radius * cos(nextTheta), -halfLength, radius * sin(nextTheta))
-        #     glVertex3f(0.0, -halfLength, 0.0)
-        #     glEnd()
+        glPopMatrix()
+    elif scene == 4:
+        viewInit(evepoint=(0, 0, 100), lookat=(0, 0, 0))
+        # torus
+        glPushMatrix()
 
-        # float
-        # radius, halfLength;
-        # int
-        # slices;
-        # for (int i=0; i < slices; i++) {
-        # float theta = ((float)i) * 2.0 * M_PI;
-        # float nextTheta = ((float)i+1) * 2.0 * M_PI;
-        # glBegin(GL_TRIANGLE_STRIP);
-        # / * vertex at middle of end * / glVertex3f(0.0, halfLength, 0.0);
-        # / * vertices at edges of circle * / glVertex3f(radius * cos(theta), halfLength, radius * sin(theta));
-        # glVertex3f (radius * cos(nextTheta), halfLength, radius * sin(nextTheta));
-        # / * the same vertices at the bottom of the cylinder * /
-        # glVertex3f (radius * cos(nextTheta), -halfLength, radius * sin(nextTheta));
-        # glVertex3f(radius * cos(theta), -halfLength, radius * sin(theta));
-        # glVertex3f(0.0, -halfLength, 0.0);
-        # glEnd();
-        # }
+        glRotate(angle, 0, 0, 1)
+
+        glTranslatef(-20, 0, 0)
+        glRotate(45, 1, 0, 0)
+        glutWireTorus(5, 10, 20, 20)
 
         glPopMatrix()
 
-        #drawScene3(10, 1, 20, 20)
+        # cylinder
+        glPushMatrix()
+
+        glScalef(2, 2, 2)
+
+        glTranslatef(20, 0, 0)
+        glRotate(45, 1, 0, 0)
+
+        quadratic = gluNewQuadric()
+        gluQuadricDrawStyle(quadratic, GLU_LINE)
+        gluQuadricNormals(quadratic, GLU_SMOOTH)
+        gluCylinder(quadratic, 5.0, 5.0, 20.0, 32, 32)
+
+        glPopMatrix()
 
 
     if swap:
         glutSwapBuffers()
-    # print("displaying scene: " + str(scene))
 
 
 def idle():
     # print("idle")
     global angle
     global is_rotating
+    global is_torus_rotating
+    global scene
 
-    if is_rotating and angle < 90:
-        angle = (((time.time() - start_time) % period) / period) * 360
-        if angle == 90:
-            is_rotating = False
+    if scene == 2:
+        if is_rotating and angle < 90:
+            angle = (((time.time() - start_time) % period) / period) * 360
+            if angle == 90:
+                is_rotating = False
+    if scene == 4:
+        if is_torus_rotating and angle > -45:
+            angle = (((time.time() - start_time) % period) / period) * -360
+            if angle == -45:
+                is_torus_rotating = False
+
     glutPostRedisplay()
 
 
 def key_pressed(*args):
     global scene
     global is_rotating
+    global is_torus_rotating
     global angle
     global start_time
     # print("key pressed: ", ord(args[0]))
@@ -125,7 +133,14 @@ def key_pressed(*args):
     elif ord(args[0]) == 51:
         scene = 3
     elif ord(args[0]) == 52:
+        start_time = time.time()
+        angle = 0
+        is_torus_rotating = True
         scene = 4
+    elif ord(args[0]) == 53:
+        scene = 5
+    elif ord(args[0]) == 54:
+        scene = 6
 
 
 
