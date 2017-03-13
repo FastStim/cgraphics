@@ -80,7 +80,9 @@ def drawTorus(size, sp_to, numc, numt):
             for k in range(2, 0, -1):
                 s = (i + k) % numc + 0.5
                 t = j % numt
-
+                # sp_to abbreviation sphere torus
+                # if sp_to = 2  this is torus
+                # but in normal math 0 <= sp_to <= 1
                 x = (sp_to + .1 * size * cos(s * twopi / numc)) * cos(t * twopi / numt)
                 y = (sp_to + .1 * size * cos(s * twopi / numc)) * sin(t * twopi / numt)
                 z = .1 * size * sin(s * twopi / numc)
