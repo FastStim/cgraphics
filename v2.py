@@ -68,7 +68,10 @@ def display(swap = 1, clear = 1):
 
         glTranslatef(-20, 0, 0)
         glRotate(45, 1, 0, 0)
-        glutWireTorus(5, 10, 20, 20)
+
+        drawTorus(15, .9999, 20, 20)
+
+        #glutWireTorus(5, 10, 20, 20)
 
         glPopMatrix()
 

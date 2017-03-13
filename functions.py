@@ -6,7 +6,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import time, sys
-from math import *
+from math import sin, cos, pi
 
 
 def viewInit(evepoint = (0, 0, 100), lookat = (0, 0, 0)):
